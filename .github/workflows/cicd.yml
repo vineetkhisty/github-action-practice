@@ -10,6 +10,7 @@ jobs:
         - name: Cloning the code
           run: echo "Cloning the code"
     build:
+      needs: code
       runs-on: ubuntu-latest
       steps:
         - name: building the code
@@ -17,12 +18,14 @@ jobs:
                echo "Tagging the docker images"
                echo "Pushing the image into DockerHub/ContainerReg"
     test:
+      needs: build
       runs-on: ubuntu-latest
       steps:
         - name: Testing the code
           run : echo "Testing the code"
                 echo "Scanning the images"
     deploy:
+      needs: test
       runs-on: ubuntu-latest
       steps:
         - name: Deploying the docker images
