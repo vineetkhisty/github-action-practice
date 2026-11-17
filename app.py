@@ -1,4 +1,4 @@
-# This is a simple python app
+# This is a simple python app to check the server health
 from flask import Flask, render_template
 app = Flask(__name__)
 
