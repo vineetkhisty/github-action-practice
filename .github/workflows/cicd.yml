@@ -1,0 +1,30 @@
+name: CICD
+
+on:
+  workflow_dispatch:
+
+jobs:
+    code:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Cloning the code
+          run: echo "Cloning the code"
+    build:
+      runs-on: ubuntu-latest
+      steps:
+        - name: building the code
+          run: echo "Building the docker images"
+               echo "Tagging the docker images"
+               echo "Pushing the image into DockerHub/ContainerReg
+    test:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Testing the code
+          run : echo "Testing the code"
+                echo "Scanning the images"
+    deploy:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Deploying the docker images
+          run: echo "Updated the manifest file with the correct image tag"
+               echo "Deployed the code to the server using Docker container"
