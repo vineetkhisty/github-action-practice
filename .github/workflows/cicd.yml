@@ -1,33 +1,41 @@
 name: CICD
 
 on:
-  workflow_dispatch:
+  push:
+    paths: "*.py"
 
 jobs:
     code:
       runs-on: ubuntu-latest
       steps:
         - name: Cloning the code
-          run: echo "Cloning the code"
-    build:
-      needs: code
-      runs-on: ubuntu-latest
-      steps:
-        - name: building the code
-          run: echo "Building the docker images"
-               echo "Tagging the docker images"
-               echo "Pushing the image into DockerHub/ContainerReg"
-    test:
-      needs: build
-      runs-on: ubuntu-latest
-      steps:
-        - name: Testing the code
-          run : echo "Testing the code"
-                echo "Scanning the images"
-    deploy:
-      needs: test
-      runs-on: ubuntu-latest
-      steps:
-        - name: Deploying the docker images
-          run: echo "Updated the manifest file with the correct image tag"
-               echo "Deployed the code to the server using Docker container"
+          uses: actions/checkout@v7
+          
+        - name: Install the linter
+          run: pip install ruff
+          
+        - name: Run the linter
+          run: ruff check .
+          
+    # build:
+    #   needs: code
+    #   runs-on: ubuntu-latest
+    #   steps:
+    #     - name: building the code
+    #       run: echo "Building the docker images"
+    #            echo "Tagging the docker images"
+    #            echo "Pushing the image into DockerHub/ContainerReg"
+    # test:
+    #   needs: build
+    #   runs-on: ubuntu-latest
+    #   steps:
+    #     - name: Testing the code
+    #       run : echo "Testing the code"
+    #             echo "Scanning the images"
+    # deploy:
+    #   needs: test
+    #   runs-on: ubuntu-latest
+    #   steps:
+    #     - name: Deploying the docker images
+    #       run: echo "Updated the manifest file with the correct image tag"
+    #            echo "Deployed the code to the server using Docker container"
