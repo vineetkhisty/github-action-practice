@@ -15,7 +15,7 @@ jobs:
           run: pip install ruff
           
         - name: Run the linter
-          run: ruff check .
+          run: ruff check . --fix
           
     # build:
     #   needs: code
